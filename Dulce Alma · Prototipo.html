@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dulce Alma · Prototipo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap">
+<style>
+:root{--bg:#fff;--fg:#222;--mut:#6b6b6b;--line:#d9d9d9;--ph:#e8e8e8;--brand:#7b1e3e;--ink:#222;--ink-fg:#fff;--bub:#f0f0f0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17141a;--fg:#f1eef2;--mut:#a79fab;--line:#3a343e;--ph:#2a252d;--brand:#b0345f;--ink:#f1eef2;--ink-fg:#17141a;--bub:#26212a}}
+:root[data-theme="dark"]{--bg:#17141a;--fg:#f1eef2;--mut:#a79fab;--line:#3a343e;--ph:#2a252d;--brand:#b0345f;--ink:#f1eef2;--ink-fg:#17141a;--bub:#26212a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 Inter,system-ui,sans-serif}
+h1,h2,.serif{font-family:'Playfair Display',Georgia,serif;font-weight:500;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--line)}
+.logo{display:flex;gap:16px;align-items:center;cursor:pointer;background:none;border:0;text-align:left;padding:0}
+.logo i{width:56px;height:56px;border-radius:50%;background:#444;display:block}
+.logo b{font:600 28px 'Playfair Display',serif;display:block;line-height:1.1}
+.logo small{letter-spacing:.12em;font-size:12px;color:var(--mut);text-transform:uppercase}
+.cartbtn{display:flex;gap:10px;align-items:center;background:var(--ink);color:var(--ink-fg);border:0;border-radius:99px;padding:14px 22px;font-weight:500}
+main{padding:32px;max-width:1280px;margin:0 auto}
+.pill{border:1px solid #888;background:none;border-radius:99px;padding:12px 24px;font-weight:500}
+.pill:hover{background:var(--bub)}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:99px;padding:16px 24px;font-weight:600}
+.btn:hover{filter:brightness(1.12)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:32px;margin-top:28px}
+.ph{background:var(--ph);border:1px dashed #999;border-radius:20px;display:grid;place-items:center;color:#888;aspect-ratio:1.25}
+.ph svg{width:44px;height:44px}
+.card h2{font-size:26px;margin:18px 0 2px}.card small{color:var(--mut);display:block}.card strong{font-size:24px;display:block;margin-bottom:14px}
+.bar{display:flex;gap:16px;margin-bottom:28px}
+.det{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:40px;align-items:start}
+.det .ph{aspect-ratio:1.03}.thumbs{display:flex;gap:16px;margin-top:20px}.thumbs .ph{width:100px;aspect-ratio:1;border-radius:14px}
+.panel{border:1px solid #888;border-radius:28px;overflow:hidden}
+.panel>div{padding:28px 40px;border-bottom:1px solid var(--line)}.panel>div:last-child{border:0}
+.panel h1{font-size:44px}.lbl{color:var(--mut);font-size:15px;margin-bottom:8px}
+select{width:100%;padding:18px 24px;border-radius:99px;border:1px solid #888;background:var(--bg);color:var(--fg);font:inherit;font-size:20px}
+.buy{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap}.price{font-size:46px;font-weight:600;line-height:1.1}
+.step{display:inline-flex;align-items:center;border:1px solid #888;border-radius:99px;overflow:hidden}
+.step button{border:0;background:none;width:44px;height:46px;font-size:20px}.step span{min-width:34px;text-align:center;font-weight:500}
+.buy .btn{flex:1;min-width:200px;font-size:19px;padding:20px}
+.tip{position:relative;display:inline-grid;place-items:center;width:22px;height:22px;border:1.5px solid #888;border-radius:50%;font-size:13px;color:var(--mut);cursor:help;vertical-align:middle;margin-left:4px;background:none;padding:0}
+.tip em{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);width:230px;background:var(--ink);color:var(--ink-fg);font-style:normal;font-size:14px;line-height:1.4;padding:10px 14px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .15s;z-index:5;text-align:left}
+.tip:hover em,.tip:focus em{opacity:1}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:grid;place-items:center;z-index:30;padding:16px}
+.modal{background:var(--bg);border-radius:28px;padding:48px;width:min(800px,100%);display:grid;gap:20px}
+.modal .top{display:flex;gap:20px;align-items:center}.modal h2{font-size:38px}
+.ok{display:flex;gap:16px;align-items:center;border:1px solid var(--line);border-radius:22px;padding:28px 32px;font-size:20px}
+.ok svg{width:46px;height:46px;flex:none}
+.modal .btn,.modal .pill{width:100%;font-size:20px;padding:20px}
+table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--mut);font-weight:600;padding:16px;border-bottom:1px solid var(--line)}
+td{padding:20px 16px;border-bottom:1px solid var(--line);vertical-align:middle}.prod{display:flex;gap:16px;align-items:center}.prod .ph{width:96px;aspect-ratio:1;border-radius:14px}.prod .ph svg{width:26px}
+.del{border:0;background:none;padding:6px;color:var(--fg)}.del:hover{color:var(--brand)}
+.empty{text-align:center;padding:80px 0;color:var(--mut)}
+.leg{border:1px dashed #999;border-radius:18px;padding:16px 22px;max-width:420px;margin-top:40px;font-size:15px}
+.foot{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:18px 32px;margin:60px -32px -32px;gap:16px;flex-wrap:wrap}
+.steps{display:flex;align-items:center;gap:22px}.sp{display:grid;justify-items:center;gap:6px;font-size:14px;color:var(--mut);border:0;background:none}
+.sp i{width:66px;height:66px;border-radius:50%;border:1.5px solid #999;display:grid;place-items:center;font-style:normal;font-size:22px;font-weight:500}
+.sp.on{color:var(--fg)}.sp.on i{background:var(--brand);color:#fff;border-color:var(--brand)}.sp[disabled]{cursor:not-allowed}
+.tot{text-align:right;color:var(--mut)}.tot b{display:block;font-size:46px;color:var(--fg);line-height:1.1}
+.na{position:relative}.na:hover::after{content:"No disponible en este prototipo";position:absolute;bottom:105%;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--ink-fg);font-size:13px;padding:8px 12px;border-radius:10px;white-space:nowrap}
+.fab{position:fixed;right:28px;bottom:calc(28px + env(safe-area-inset-bottom,0px));width:104px;height:104px;border-radius:50%;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.fab svg{width:44px;height:44px}
+.chat{position:fixed;right:28px;bottom:calc(150px + env(safe-area-inset-bottom,0px));width:400px;max-width:calc(100vw - 24px);height:min(640px,calc(100dvh - 190px));background:var(--bg);border:1px solid #888;border-radius:28px;display:none;flex-direction:column;z-index:25;overflow:hidden}
+.chat.open{display:flex}
+.ch{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);font-weight:600}.ch i{width:40px;height:40px;border-radius:50%;background:#555}.ch button{margin-left:auto;border:0;background:none;font-size:22px}
+.msgs{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.b{display:flex;gap:12px;align-items:flex-start}.b i{width:40px;height:40px;border-radius:50%;background:#555;flex:none}
+.b span{background:var(--bub);border:1px solid var(--line);border-radius:18px;padding:12px 18px}
+.u{align-self:flex-end;background:var(--ink);color:var(--ink-fg);border-radius:18px;padding:12px 20px}
+.old{pointer-events:none;opacity:.55}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ol{display:grid;gap:12px}
+.o{border:1px solid #888;background:var(--bg);border-radius:20px;padding:14px 16px;display:flex;gap:14px;align-items:center;text-align:left}
+.og .o{flex-direction:column;justify-content:center;min-height:100px;text-align:center}
+.o:hover{border-color:var(--brand);background:var(--bub)}
+.o i{width:40px;height:40px;border-radius:12px;background:var(--ph);border:1px dashed #999;flex:none}
+.o b{margin-left:auto;font-weight:600}.o.pr i{border-radius:6px;width:26px;height:26px;border:1.5px solid #888;background:none}
+.chips{display:flex;gap:10px;flex-wrap:wrap;padding-left:52px}.chip{border:1px solid #888;border-radius:99px;padding:10px 22px;background:var(--bg)}.chip.sel{background:var(--ink);color:var(--ink-fg)}.chip:hover{border-color:var(--brand)}
+.ci{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.ci .btn{padding:10px 20px;margin-left:auto}
+.cin{display:flex;gap:10px;padding:16px;border-top:1px solid var(--line)}
+.cin input{flex:1;border:1px solid #888;border-radius:99px;padding:12px 20px;font:inherit;background:var(--bg);color:var(--fg);min-width:0}
+.cin button{width:50px;height:50px;border-radius:50%;border:0;background:var(--brand);color:#fff;font-size:20px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+@media(max-width:800px){header,main{padding-left:16px;padding-right:16px}.foot{margin:60px -16px -32px;padding:14px 16px}.det{grid-template-columns:1fr}.panel>div{padding:22px}.panel h1{font-size:34px}.fab{width:72px;height:72px;right:16px}.fab svg{width:32px}.chat{right:12px;bottom:calc(100px + env(safe-area-inset-bottom,0px))}.logo i{width:40px;height:40px}.sp i{width:48px;height:48px}.steps{gap:8px}.modal{padding:28px}table,tbody,tr,td{display:block}thead{display:none}tr{border-bottom:1px solid var(--line);padding:12px 0}td{border:0;padding:6px 0}}
+</style>
+</head>
+<body>
+<header><button class="logo" onclick="nav('cat')"><i></i><span><b>Dulce Alma</b><small>Repostería artesanal</small></span></button>
+<button class="cartbtn" onclick="nav('cart')" aria-label="Ver carrito"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.4 11h10.2L20 8H6.3"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg><span id="cnt">0</span></button></header>
+<main id="app"></main>
+<div id="modal"></div>
+<button class="fab" onclick="toggleChat()" aria-label="Abrir chat de ayuda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="12" rx="4"/><path d="M12 8V4.5M12 4.5h.01"/><circle cx="9" cy="14" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/></svg></button>
+<section class="chat" id="chat" aria-label="Chat de gestión y ayuda"><div class="ch"><i></i><span id="ctitle">Chat de gestión y ayuda</span><button onclick="toggleChat()" aria-label="Cerrar chat">✕</button></div><div class="msgs" id="msgs"></div><div class="cin"><input id="cinp" placeholder="Escribe aquí..." autocomplete="off"><button onclick="send()" aria-label="Enviar">→</button></div></section>
+<script>
+const IMG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M4 19l5.5-6 4 4 3-3L21 17"/></svg>';
+const P=[{n:'Torta de chocolate',b:19300,d:'Torta cubierta de chocolate con rollos de chocolate y toppings de colores.'},{n:'Torta de vainilla',b:17500,d:'Bizcocho suave de vainilla con crema y decoración artesanal.'},{n:'Torta de tres leches',b:20500,d:'Bizcocho húmedo bañado en tres leches, con crema chantilly y canela.'}];
+const S=[{k:'pequeño',p:'1-3 porciones',m:1},{k:'mediano',p:'4-8 porciones',m:1.6},{k:'grande',p:'9-14 porciones',m:2.3}];
+const unit=(pid,s)=>Math.round(P[pid].b*S[s].m/100)*100;
+const fmt=n=>'$'+String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const STOCK=10;
+let view='cat',cart=[],d={pid:0,s:0,q:1},hist=['cat'];
+const $=id=>document.getElementById(id);
+function addCart(pid,s,q){const x=cart.find(i=>i.pid==pid&&i.s==s);if(x)x.q=Math.min(STOCK,x.q+q);else cart.push({pid,s,q});$('cnt').textContent=cart.reduce((a,i)=>a+i.q,0)}
+function nav(v,back){if(!back&&v!=view)hist.push(v);view=v;$('modal').innerHTML='';render();scrollTo(0,0)}
+function back(){hist.pop();nav(hist[hist.length-1]||'cat',true)}
+function bar(t){return `<div class="bar"><button class="pill" onclick="back()">‹ Atrás</button><button class="pill" style="cursor:default">${t}</button></div>`}
+function render(){const a=$('app');
+if(view=='cat'){a.innerHTML=`<h1 style="font-size:52px">Nuestros Productos</h1><div class="grid">${P.map((p,i)=>`<div class="card"><div class="ph">${IMG}</div><h2>${p.n}</h2><small>Desde</small><strong>${fmt(unit(i,0))}</strong><button class="pill" onclick="openP(${i})">Ver más</button></div>`).join('')}</div>`}
+else if(view=='det'){const p=P[d.pid];a.innerHTML=`${bar('Detalles producto')}<div class="det"><div><div class="ph">${IMG}</div><div class="thumbs"><div class="ph"></div><div class="ph"></div><div class="ph"></div></div><p class="lbl" style="margin-top:16px;font-size:18px">Stock: ${STOCK} unds</p></div><div class="panel"><div><h1>${p.n}</h1></div><div><div class="lbl">Descripción</div><div style="font-size:19px">${p.d}</div></div><div><div class="lbl">Tamaños</div><select onchange="d.s=+this.value;render()">${S.map((s,i)=>`<option value="${i}" ${i==d.s?'selected':''}>${s.p}</option>`).join('')}</select><div class="buy" style="margin-top:28px"><div><div class="lbl">Precio <button class="tip" aria-label="Información del precio">i<em>El precio varía según la cantidad y las porciones.</em></button></div><div class="price">${fmt(unit(d.pid,d.s)*d.q)}</div></div><div><div class="lbl">Cantidad</div><div class="step"><button onclick="dq(-1)" aria-label="Menos">−</button><span>${d.q}</span><button onclick="dq(1)" aria-label="Más">+</button></div></div><button class="btn" onclick="addDet()">Agregar al carrito</button></div></div></div></div>`}
+else{const tot=cart.reduce((t,i)=>t+unit(i.pid,i.s)*i.q,0);a.innerHTML=`${bar('Carrito compras')}${cart.length?`<table><thead><tr><th>Producto</th><th>Método envío</th><th>Unidades</th><th>Precio</th></tr></thead><tbody>${cart.map((i,k)=>`<tr><td><div class="prod"><button class="del" onclick="delI(${k})" aria-label="Eliminar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button><div class="ph">${IMG}</div><div><b>${P[i.pid].n}</b><div class="lbl" style="margin:0">Tamaño seleccionado: ${S[i.s].k}</div></div></div></td><td>Domicilio</td><td>${i.q} und</td><td><b>${fmt(unit(i.pid,i.s)*i.q)}</b></td></tr>`).join('')}</tbody></table>`:`<div class="empty"><p class="serif" style="font-size:28px;color:var(--fg)">Tu carrito está vacío</p><p>Explora el catálogo y agrega tu primera torta.</p><button class="btn" onclick="nav('cat')">Ver productos</button></div>`}<div class="leg"><b>Leyenda</b><br>Los botones de detalles de envío y confirmación de pago no están disponibles en este prototipo.</div><div class="foot"><div class="steps"><button class="sp on"><i>1</i>Confirmación compra</button>→<button class="sp na" disabled><i>2</i>Detalles envío</button>→<button class="sp na" disabled><i>3</i>Confirmación pago</button></div><div class="tot">Total a pagar<b>${fmt(tot)}</b></div></div>`}}
+function openP(i){d={pid:i,s:0,q:1};nav('det')}
+function dq(n){d.q=Math.max(1,Math.min(STOCK,d.q+n));render()}
+function delI(k){cart.splice(k,1);$('cnt').textContent=cart.reduce((a,i)=>a+i.q,0);render()}
+function addDet(){addCart(d.pid,d.s,d.q);$('modal').innerHTML=`<div class="ov"><div class="modal" role="dialog" aria-label="Aviso"><div class="top"><button class="pill" style="width:auto;padding:12px 24px;font-size:16px" onclick="$('modal').innerHTML=''">‹ Atrás</button><h2>Aviso</h2></div><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>Producto agregado al carrito exitosamente</div><button class="btn" onclick="nav('cart')">Ver mi carrito</button><button class="pill" onclick="$('modal').innerHTML='';nav('cat')">Seguir comprando</button></div></div>`}
+
+/* ---------- Chat ---------- */
+let M=[],sel=null,ctx=null;
+const MENU=[{l:'Realizar un pedido',a:'order'},{l:'Consultar pedidos',a:'orders'},{l:'Ayuda',a:'help'},{l:'Preguntas frecuentes',a:'faq'}];
+const BACK=[{l:'‹ Volver al menú',a:'menu',c:'chip'}];
+const HELP=[['Seguimiento de mi pedido','Cuando tu pedido sea confirmado recibirás un aviso con el estado de la preparación y la entrega. También puedes ver tu carrito en “Consultar pedidos”.'],['Cambiar o cancelar un pedido','Puedes eliminar productos desde el carrito antes de confirmar el pago. Una vez pagado, comunícate con un asesor lo antes posible.'],['Métodos de envío','Por ahora el envío disponible es a domicilio. Los detalles de envío se confirman en el paso 2 del carrito.'],['Hablar con un asesor','__adv']];
+const FAQ=[['¿Cuánto tarda la entrega?','Las tortas se preparan por encargo. La entrega a domicilio toma entre 24 y 48 horas después de confirmar el pago.'],['¿Cómo funcionan los tamaños?','Pequeño: 1-3 porciones. Mediano: 4-8 porciones. Grande: 9-14 porciones. El precio cambia según el tamaño y la cantidad.'],['¿Puedo personalizar mi pedido?','Sí. Escríbenos con un asesor para acordar decoración, mensajes o sabores especiales.'],['¿Qué métodos de pago hay?','Los métodos de pago se muestran en el paso 3 del carrito, que no está disponible en este prototipo.']];
+function toggleChat(){const c=$('chat');c.classList.toggle('open');if(c.classList.contains('open')&&!M.length)go('menu',null)}
+function B(t){M.push({t:'b',x:t})}function U(t){M.push({t:'u',x:t})}function O(k,items){M.push({t:'o',k,items})}
+function title(s){$('ctitle').textContent='Chat de gestión y ayuda'+(s?' · '+s:'')}
+function go(a,label){if(label)U(label);ctx=null;title('');
+if(a=='menu'){B('Hola, puedes gestionar tus pedidos y buscar ayuda por medio de este chat. Selecciona una opción o escribe «salir» para terminar.');O('og',MENU)}
+else if(a=='order'){B('Selecciona el tipo de producto:');O('ol',[{l:'Pasteles',a:'t0'},{l:'Tortas',a:'t1'},{l:'Otros productos',a:'t2'}]);O('',BACK)}
+else if(a=='t0'||a=='t2'){B('Por ahora no tenemos productos en esta categoría. Prueba con Tortas.');O('',[{l:'Ver tortas',a:'t1',c:'chip'},...BACK])}
+else if(a=='t1'){B('Selecciona el producto que deseas añadir al carrito:');O('ol pr',P.map((p,i)=>({l:p.n,a:'p'+i,pr:fmt(unit(i,0))})));O('',BACK)}
+else if(a[0]=='p'&&a.length==2){sel={pid:+a[1],s:0,q:1};B('Producto seleccionado:');O('ol pr',[{l:P[sel.pid].n,pr:fmt(unit(sel.pid,0)),a:'-'}]);B('Indica la cantidad y el tamaño:');M.push({t:'w'})}
+else if(a=='confirm'){addCart(sel.pid,sel.s,sel.q);B('¿Deseas agregar otro producto?');ctx={yes:'t1',no:'done'};O('chips',[{l:'Sí',a:'t1',c:'chip'},{l:'No',a:'done',c:'chip'}])}
+else if(a=='done'){B('Producto agregado exitosamente.');B('¿Deseas seguir comprando?');ctx={yes:'keep',no:'tocart'};O('chips',[{l:'Sí',a:'keep',c:'chip'},{l:'No',a:'tocart',c:'chip'}])}
+else if(a=='keep'){B('¡Perfecto! Puedes seguir explorando el catálogo o volver al menú.');O('',[{l:'Ver tortas',a:'t1',c:'chip'},...BACK])}
+else if(a=='tocart'){B('Listo, te llevo a tu carrito.');nav('cart');$('chat').classList.remove('open')}
+else if(a=='orders'){if(!cart.length){B('Aún no tienes pedidos en tu carrito.');O('',[{l:'Realizar un pedido',a:'order',c:'chip'},...BACK])}else{B('Estos son los productos de tu pedido actual:');O('ol pr',cart.map(i=>({l:`${i.q} × ${P[i.pid].n} (${S[i.s].k})`,pr:fmt(unit(i.pid,i.s)*i.q),a:'-'})));O('',[{l:'Ver carrito',a:'tocart',c:'chip'},...BACK])}}
+else if(a=='help'){title('Ayuda');B('¿En qué necesitas ayuda? Elige un tema:');O('ol',HELP.map((h,i)=>({l:h[0],a:'h'+i})));O('',BACK)}
+else if(a=='faq'){title('Preguntas frecuentes');B('Estas son las preguntas más comunes. Selecciona una para ver la respuesta:');O('ol',FAQ.map((h,i)=>({l:h[0],a:'q'+i})));O('',BACK)}
+else if(a[0]=='h'){const h=HELP[+a[1]];title('Ayuda');B(h[1]=='__adv'?'Un asesor se pondrá en contacto contigo muy pronto. (Simulación del prototipo)':h[1]);O('',[{l:'‹ Volver a ayuda',a:'help',c:'chip'},...BACK])}
+else if(a[0]=='q'){title('Preguntas frecuentes');B(FAQ[+a[1]][1]);O('',[{l:'‹ Más preguntas',a:'faq',c:'chip'},...BACK])}
+drawChat()}
+function drawChat(){const el=$('msgs'),n=M.length;el.innerHTML=M.map((m,i)=>{const old=i<n-1?' old':'';
+if(m.t=='b')return `<div class="b"><i></i><span>${m.x}</span></div>`;
+if(m.t=='u')return `<div class="u">${m.x}</div>`;
+if(m.t=='o'){if(m.k=='chips'||m.items[0].c)return `<div class="chips${old}">${m.items.map(o=>`<button class="chip" data-a="${o.a}" data-l="${o.l}">${o.l}</button>`).join('')}</div>`;
+return `<div class="${m.k}${old}">${m.items.map(o=>`<button class="o ${m.k.includes('pr')?'pr':''}" data-a="${o.a}" data-l="${o.l}">${m.k.includes('pr')?'<i></i>':m.k=='og'||m.k=='ol'?'<i></i>':''}<span>${o.l}</span>${o.pr?`<b>${o.pr}</b>`:''}</button>`).join('')}</div>`}
+if(m.t=='w')return `<div class="${old}" style="padding-left:52px;display:grid;gap:12px"><div class="chips" style="padding:0">${S.map((s,k)=>`<button class="chip ${k==sel.s?'sel':''}" onclick="sel.s=${k};drawChat()" title="${s.p}">${s.k[0].toUpperCase()+s.k.slice(1)}</button>`).join('')}</div><div class="lbl" style="margin:0">${S[sel.s].p}</div><div class="ci">Cantidad: <div class="step"><button onclick="sel.q=Math.max(1,sel.q-1);drawChat()">−</button><span>${sel.q}</span><button onclick="sel.q=Math.min(STOCK,sel.q+1);drawChat()">+</button></div><button class="btn" onclick="go('confirm','Confirmar: ${sel.q} × '+P[sel.pid].n+' ('+S[sel.s].k+')')">Confirmar</button></div></div>`}).join('');el.scrollTop=el.scrollHeight}
+$('msgs').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&b.dataset.a!='-')go(b.dataset.a,b.dataset.l)});
+function send(){const i=$('cinp'),v=i.value.trim();if(!v)return;i.value='';const t=v.toLowerCase();
+if(t=='salir'){U(v);B('¡Hasta pronto!');drawChat();setTimeout(()=>$('chat').classList.remove('open'),600);M=[];return}
+if(['menu','menú'].includes(t))return go('menu',v);
+if(ctx&&['sí','si'].includes(t))return go(ctx.yes,v);
+if(ctx&&t=='no')return go(ctx.no,v);
+U(v);B('No logré entender tu mensaje. Selecciona una opción o escribe «menú».');drawChat()}
+$('cinp').addEventListener('keydown',e=>{if(e.key=='Enter')send()});
+render();
+</script>
+</body>
+</html>
